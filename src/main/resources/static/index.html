@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laenukalkulaator</title>
+
+    <style>
+        html, body {
+            margin: 5vw 10vw;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            background: #f6fafe; /* Old browsers */
+            background: -moz-linear-gradient(top, #f9fcfe 0%, #f2f9fd 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9fcfe), color-stop(100%, #f2f9fd)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #f9fcfe 0%, #f2f9fd 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #f9fcfe 0%, #f2f9fd 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #f9fcfe 0%, #f2f9fd 100%); /* IE10+ */
+            background: linear-gradient(to bottom, #f9fcfe 0%, #f2f9fd 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfe', endColorstr='#f2f9fd', GradientType=0); /* IE6-9 */
+
+            min-height: 790px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="header" style="font-size:20px">
+    <h1>Tere tulemast laenukalkuleerimise lehele!</h1>
+    <p>Vali omale sobiv laenusumma või perioodipikkus, et näha, kas me saame sulle laenu pakkuda:</p>
+</div>
+
+<div> Isikukoodiks võid kasutada:<br>49002010965<br>49002010976<br>49002010987<br>49002010998<br> või midagi muud :)<br>
+    Meie laenuperioodid on 12 - 60 kuud.<br>
+    Head katsetamist!
+</div>
+<table>
+    <tr>
+        <td><label for="personalCode" style="font-weight: bold">Palun sisesta oma isikukoodi:</label></td>
+        <td><input style="padding: 5px; margin-left: 5px; width: 150px;  height: 35px" id="personalCode"></td>
+    </tr>
+    <tr>
+        <td><label for="requestedAmount" style="font-weight: bold">Millist summat soovid meie pangast laenata?</label></td>
+        <td><select style="padding: 5px; margin-left: 5px;width: 150px;  height: 35px" id="requestedAmount">
+            <option>2000</option>
+            <option>3000</option>
+            <option>4000</option>
+            <option>5000</option>
+            <option>6000</option>
+            <option>7000</option>
+            <option>8000</option>
+            <option>9000</option>
+            <option>10000</option>
+        </select></td>
+    </tr>
+    <tr>
+        <td><label for="requestedPeriod" style="font-weight: bold">Mis perioodiks soovid laenu võtta (kuudes)?</label></td>
+        <td><input style="padding:5px; margin-left: 5px; width: 150px; height: 35px" id="requestedPeriod"type="number"autocomplete="on"></td>
+    </tr>
+</table>
+
+<button id="button1" style="margin-top: 15px; margin-bottom: 20px; margin-left: 20vw; padding: 5px 15px !important; background-color: #cee2dd">Kalkulleri!</button>
+<br>
+<br>
+<br>
+<p id="vastus1" style="font-size: 20px"></p>
+
+
+
+<script type="text/javascript">
+    let button = document.getElementById("button1");
+    let personalCode = document.getElementById("personalCode");
+    let requestedAmount = document.getElementById("requestedAmount");
+    let requestedPeriod = document.getElementById("requestedPeriod");
+    let vastus = document.getElementById("vastus1");
+
+    button.onclick = function () {
+        // http://localhost:8080/test?personalCode=6&requestedAmount=425342&requestedPeriod=12
+        let url = 'http://localhost:8080/test'+ "?personalCode="+personalCode.value + "&requestedAmount="+requestedAmount.value+"&requestedPeriod=" + requestedPeriod.value
+        fetch(url)
+            .then(response => response.text()) // function(response) { return response.text()}
+            .then(function(a) {
+                let vastus = document.getElementById("vastus1");
+                vastus.innerHTML = a;
+            })
+    }
+
+
+</script>
+
+</body>
+</html>
